@@ -13,5 +13,5 @@
   
   ##main ScreenShot
   ---------------------
-  ![ex_screenshot](./Screenshot/main.jpg)
+  ![ex_screenshot](/ScreenShot/main.jpg)
   
