@@ -11,4 +11,6 @@
   Api folder 'mysql-connector-java-8.0.18.jar' 버전확인 필요
   ID password 체크
   
-  ##main screen
+  ##main ScreenShot
+  ![ex_screenshot](./Screenshot/main.jpg)
+  
