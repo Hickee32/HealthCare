@@ -12,5 +12,6 @@
   ID password 체크
   
   ##main ScreenShot
+  ---------------------
   ![ex_screenshot](./Screenshot/main.jpg)
   
