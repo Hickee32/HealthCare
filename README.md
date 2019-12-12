@@ -22,4 +22,20 @@
   
   
   
+2019-12-12
+
+mainscreen image simple manual
+
+AmountEx - savebutton sqldb connect
+
+Barchart updating..
+
+Memo section update and password change Implementing
+
+ex소개 webview "https://terms.naver.com/list.nhn?cid=51032&categoryId=51032" connect
+
+DB table weight height bmi write
+  
+  
+  
   
