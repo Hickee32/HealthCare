@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import main.MainApp;
 
-public class LoginController extends RootController {
+public class LoginController extends MainController {
 
 	@FXML
 	private TextField IdText;

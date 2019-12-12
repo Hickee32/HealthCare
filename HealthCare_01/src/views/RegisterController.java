@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import main.MainApp;
 
-public class RegisterController extends RootController {
+public class RegisterController extends MainController {
 
 	@FXML
 	private TextField txtId;

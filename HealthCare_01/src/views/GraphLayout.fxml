@@ -11,11 +11,11 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="410.0" prefWidth="690.0" style="-fx-background-color: #76429b;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="410.0" prefWidth="690.0" style="-fx-background-color: #76429b;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.GraphController">
    <children>
       <HBox alignment="CENTER_LEFT" layoutY="-2.0" prefHeight="43.0" prefWidth="690.0" style="-fx-background-color: #9776c3;">
          <children>
-            <Button mnemonicParsing="false" text="Button">
+            <Button fx:id="StartBtn" mnemonicParsing="false" onAction="#ChartStart" text="Start">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -32,13 +32,13 @@
             </Button>
          </children>
       </HBox>
-      <StackedAreaChart layoutX="50.0" layoutY="56.0" prefHeight="335.0" prefWidth="592.0">
+      <BarChart fx:id="barChart" layoutX="21.0" layoutY="41.0" prefHeight="351.0" prefWidth="648.0" title="Weight height bmi">
         <xAxis>
-          <NumberAxis side="BOTTOM" tickLabelFill="WHITE" />
+          <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" tickLabelFill="#f8f6f6" />
+          <NumberAxis side="LEFT" tickLabelFill="WHITE" />
         </yAxis>
-      </StackedAreaChart>
+      </BarChart>
    </children>
 </AnchorPane>

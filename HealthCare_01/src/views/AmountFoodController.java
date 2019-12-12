@@ -1,19 +1,24 @@
 package views;
 
+import java.io.IOException;
+
+import alram.Popup;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import resource.Food;
 
-public class AmountFoodController extends RootController {
+public class AmountFoodController extends MainController {
 
 	@SuppressWarnings("rawtypes")
 	@FXML
@@ -22,13 +27,16 @@ public class AmountFoodController extends RootController {
 	private TableView<Food> foodBF;
 	@FXML
 	private TableView<Food> foodAF;
+	@FXML
+	private TextField TfoodKcal;
 
 	private ObservableList<String> comBolist = FXCollections.observableArrayList("선택", "밥", "국");
 	ObservableList<Food> FoodList;
-	ObservableList<Food> FoodAddedList;
+	ObservableList<Food> FoodAddedList = FXCollections.observableArrayList();
 
 	String FoodName;
 	double Foodkcal;
+	double TMot;
 
 	@SuppressWarnings("unchecked")
 	@FXML
@@ -39,7 +47,7 @@ public class AmountFoodController extends RootController {
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void GukListadd() {
 		FoodList = FXCollections.observableArrayList(new Food("미역국", 204.0), new Food("배추된장국", 73.0),
 				new Food("쇠고기국", 234.0), new Food("북어국", 272.0), new Food("쇠고기무국", 110.0), new Food("시금치된장국", 73.0),
@@ -67,7 +75,7 @@ public class AmountFoodController extends RootController {
 		});
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void BabListadd() {
 		FoodList = FXCollections.observableArrayList(new Food("미국", 204.0), new Food("배추된장국", 73.0),
 				new Food("쇠고기국", 234.0), new Food("북어국", 272.0), new Food("쇠고기무국", 110.0), new Food("시금치된장국", 73.0),
@@ -106,15 +114,31 @@ public class AmountFoodController extends RootController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void AddfoodAF() {
 
-		foodAF.refresh();
-
 		FoodAddedList.add(new Food(FoodName, Foodkcal));
+		foodAF.refresh();
 
 		TableColumn foodName = foodAF.getColumns().get(0);
 		foodName.setCellValueFactory(new PropertyValueFactory("FoodName"));
 		TableColumn foodKcal = foodAF.getColumns().get(1);
-		foodKcal.setCellValueFactory(new PropertyValueFactory("Foodkcal"));
+		foodKcal.setCellValueFactory(new PropertyValueFactory("FoodKcal"));
 
 		foodAF.setItems(FoodAddedList);
+		TMot += Foodkcal;
+		TfoodKcal.setText(Double.toString(TMot));
+
+	}
+
+	public void pressDELList() throws IOException {
+		try {
+			Food selecteditem = foodAF.getSelectionModel().getSelectedItem();
+			System.out.println(selecteditem);
+			foodAF.getItems().remove(selecteditem);
+
+			double subMot = Double.parseDouble(TfoodKcal.getText()) - selecteditem.getFoodKcal();
+			TfoodKcal.setText(Double.toString(subMot));
+
+		} catch (Exception e) {
+			Popup.showAlert("에러", "항목이 없습니다.", AlertType.ERROR);
+		}
 	}
 }

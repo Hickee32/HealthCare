@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,17 +16,26 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import views.LoginController;
+import views.MainController;
 import views.RegisterController;
-import views.RootController;
 
 public class MainApp extends Application {
 
 	public static MainApp app;
 	private StackPane mainPage;
 
+	static boolean loginTF = false;
+
+	static String Uid = null;
+	static String Uname = null;
+	static Date Uinidate = null;
+	static double Uweight;
+	static double Uheight;
+	static double Ubmi;
+
 	Pane pane;
 
-	private Map<String, RootController> controllerMap = new HashMap<>();
+	private Map<String, MainController> controllerMap = new HashMap<>();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -40,7 +50,7 @@ public class MainApp extends Application {
 			mainLoader.setLocation(getClass().getResource("/views/MainLayout.fxml"));
 			mainPage = mainLoader.load();
 
-			RootController mc = mainLoader.getController();
+			MainController mc = mainLoader.getController();
 			mc.setRoot(mainPage);
 			controllerMap.put("mainPage", mc);
 
@@ -79,7 +89,7 @@ public class MainApp extends Application {
 	// 지정한 페이지를 로딩하는 것
 	public void loadPane(String name) {
 		// 지정한 컨트롤러를 맵에서 꺼낸다.
-		RootController c = controllerMap.get(name);
+		MainController c = controllerMap.get(name);
 		pane = c.getRoot();
 		mainPage.getChildren().add(pane);
 	}
@@ -96,4 +106,61 @@ public class MainApp extends Application {
 		timeline.getKeyFrames().add(keyFrame);
 		timeline.play();
 	}
+
+	public static boolean isLoginTF() {
+		return loginTF;
+	}
+
+	public static void setLoginTF(boolean loginTF) {
+		MainApp.loginTF = loginTF;
+	}
+
+	public static String getUid() {
+		return Uid;
+	}
+
+	public static void setUid(String uid) {
+		Uid = uid;
+	}
+
+	public static String getUname() {
+		return Uname;
+	}
+
+	public static void setUname(String uname) {
+		Uname = uname;
+	}
+
+	public static Date getUinidate() {
+		return Uinidate;
+	}
+
+	public static void setUinidate(Date uinidate) {
+		Uinidate = uinidate;
+	}
+
+	public static double getUweight() {
+		return Uweight;
+	}
+
+	public static void setUweight(double uweight) {
+		Uweight = uweight;
+	}
+
+	public static double getUheight() {
+		return Uheight;
+	}
+
+	public static void setUheight(double uheight) {
+		Uheight = uheight;
+	}
+
+	public static double getUbmi() {
+		return Ubmi;
+	}
+
+	public static void setUbmi(double ubmi) {
+		Ubmi = ubmi;
+	}
+
 }

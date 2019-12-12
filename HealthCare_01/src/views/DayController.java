@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class DayController extends RootController {
+public class DayController extends MainController {
 	@FXML
 	private Label lblDay;
 

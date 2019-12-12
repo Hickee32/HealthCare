@@ -3,6 +3,7 @@ package views;
 import java.io.IOException;
 
 import alram.Popup;
+import dbconnet.DbConnet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import resource.Workout;
 
-public class AmountExController extends RootController {
+public class AmountExController extends MainController {
 
 	@FXML
 	private AnchorPane AmountExPage;
@@ -58,6 +59,8 @@ public class AmountExController extends RootController {
 	double Exmot;
 	double ExMin;
 	double TMot;
+	
+	DbConnet dbc = new DbConnet();
 
 	@FXML
 	private void initialize() {
@@ -166,6 +169,22 @@ public class AmountExController extends RootController {
 	}
 
 	public void SaveBtnPress() {
+		if(main.MainApp.getUid() != null) {
+			if (HeightTF.getText() != null) {
+				main.MainApp.setUheight(Double.parseDouble(HeightTF.getText()));
+			}
+			if (WeightTF.getText() != null) {
+				main.MainApp.setUweight(Double.parseDouble(WeightTF.getText()));
+			}
+			if (BMiresultTF.getText() != null) {
+				main.MainApp.setUbmi(Double.parseDouble(BMiresultTF.getText()));
+			}
+			System.out.println(main.MainApp.getUid()+","+main.MainApp.getUweight()+","+main.MainApp.getUheight()+","+main.MainApp.getUbmi());
+			//dbc.insertUserinfo(main.MainApp.getUid(),main.MainApp.getUweight(),main.MainApp.getUheight(),main.MainApp.getUbmi());
+		}
+		else {
+			System.out.println("∫Ûƒ≠¿Ã ¿÷¥Ÿ.");
+		}
 
 	}
 

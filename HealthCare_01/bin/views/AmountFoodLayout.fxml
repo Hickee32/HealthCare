@@ -59,7 +59,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField alignment="CENTER_RIGHT" editable="false" promptText="Total Kacl">
+                  <TextField fx:id="TfoodKcal" alignment="CENTER_RIGHT" editable="false" promptText="Total Kacl">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
@@ -70,6 +70,6 @@
          </children>
       </VBox>
       <Button layoutX="278.0" layoutY="164.0" mnemonicParsing="false" onAction="#AddfoodAF" prefHeight="55.0" prefWidth="55.0" text="ADD" />
-      <Button layoutX="370.0" layoutY="164.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="55.0" text="DEL" />
+      <Button layoutX="370.0" layoutY="164.0" mnemonicParsing="false" onAction="#pressDELList" prefHeight="55.0" prefWidth="55.0" text="DEL" />
    </children>
 </AnchorPane>
