@@ -18,8 +18,13 @@
   
   Alram ScreenShot
   ---------------------
-  ![ex_screenshot](/ScreenShot/popup.jpg)
+  ![ex_screenshot](/ScreenShot/IDChack.jpg)
   
+  db에 있는 usertbl에 Uid를 검색해서 검색된 것이 있으면 사용불가()를 검색된것이 없으면 사용가능()을 label로 출력합니다.
+  
+  ![ex_screenshot](/ScreenShot/empty.jpg)
+  
+  login (ID,PassWord),register (ID,PassWord,PassWord Conform,Name) 페이지에서 빈칸이 존재하면 alram popup을 출력하여 나타내도록 합니다. 
   
   
 2019-12-12
