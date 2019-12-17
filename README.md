@@ -20,11 +20,37 @@
   ---------------------
   ![ex_screenshot](/ScreenShot/IDChack.jpg)
   
-  db에 있는 usertbl에 Uid를 검색해서 검색된 것이 있으면 사용불가()를 검색된것이 없으면 사용가능()을 label로 출력합니다.
+  * DB에 있는 usertbl에 Uid를 검색해서 검색된 것이 있으면 사용불가()를 검색된것이 없으면 사용가능()을 label로 출력합니다.
   
   ![ex_screenshot](/ScreenShot/empty.jpg)
   
-  login (ID,PassWord),register (ID,PassWord,PassWord Conform,Name) 페이지에서 빈칸이 존재하면 alram popup을 출력하여 나타내도록 합니다. 
+  * login (ID,PassWord),register (ID,PassWord,PassWord Conform,Name) 페이지에서 빈칸이 존재하면 alram popup을 출력하여 나타내도록 합니다. 
+  
+  Section ScreenShot
+  ---------------------
+  Ex Section
+  
+  ![ex_screenshot](/ScreenShot/excercise.jpg)
+  
+  * Bmi 계산과 운동을 선택하여 add 버튼으로 추가 del 버튼으로 제거 
+  * 구현중 - Save를 선택시 DB에 저장됨
+  
+  Food Section
+  
+  ![ex_screenshot](/ScreenShot/foodsection.jpg)
+  
+  * menu 버튼을 통해서 음식의 종류를 선택하고 add 버튼으로 추가 del 버튼으로 제거
+  
+  Memo Section
+  
+  ![ex_screenshot](/ScreenShot/Memo.jpg)
+  
+  * 전체적인 내용에 대해서 간략적으로 표시 DB에 저장된 데이터가 없을 시 0으로 표시
+  * 구현중 - 비밀번호 바꾸기
+  
+    ---------------------
+  
+  
   
   
 2019-12-12
