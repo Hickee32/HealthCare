@@ -15,12 +15,15 @@
   ---------------------
   ![ex_screenshot](/ScreenShot/main.jpg)
   
+  * 게스트 로그인과  회원가입 , 로그인을 구현 
+  * 로그인을 하면 전 메뉴가 이용 가능합니다.
+  * 게스트 로그인시 DB에 저장하는 기능은 사용할수 없도록 하였습니다. (Guest id로 로그인 되도록)
   
   Alram ScreenShot
   ---------------------
   ![ex_screenshot](/ScreenShot/IDChack.jpg)
   
-  * DB에 있는 usertbl에 Uid를 검색해서 검색된 것이 있으면 사용불가()를 검색된것이 없으면 사용가능()을 label로 출력합니다.
+  * DB에 있는 usertbl에 Uid를 검색해서 검색된 것이 있으면 사용불가를 검색된것이 없으면 사용가능을 label로 출력합니다.
   
   ![ex_screenshot](/ScreenShot/empty.jpg)
   
@@ -34,11 +37,11 @@
   
   * Bmi 계산과 운동을 선택하여 add 버튼으로 추가 del 버튼으로 제거 
   * Save를 선택시 DB에 저장됨 userinfomation table
-  * userinformation table 
-	  Userid 아이디
-	  Uweight 몸무게
-	  Uheight 키
-	  Ubmi BMI
+  * userinformation table =  
+	  Userid 아이디, 
+	  Uweight 몸무게, 
+	  Uheight 키, 
+	  Ubmi BMI, 
 	  Uinputdate 입력된 시간 
   
   Food Section
