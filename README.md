@@ -5,14 +5,18 @@
 # information
 
   JAVA를 사용한 윈도우 응용프로그램입니다.
-
+  LAYOUT은 JAVAFX를 사용하였으며 MySQL DB를 사용하였습니다.
+  
   \HealthCare_01\src\main\MainApp.java 을 통해 실행합니다.
   
+  dbconnet pakeage Dbconnet class의 id,password를 확인하고 실행
+  
+  외부 라이브러리 사용
   
   Build path -> Configue Build path
   Api folder 'mysql-connector-java-8.0.18.jar' 버전확인 필요
-  ID password 체크
   
+ 
   main ScreenShot
   ---------------------
   ![ex_screenshot](/ScreenShot/main.jpg)
@@ -66,6 +70,8 @@
 로그인화면에서 회원가입창으로 이동이 가능하나 취소후 다시 이동할때 문제가 발생 (Exception)
 
 * 추가 구현 예정
+
+* 마지막으로
 
 
   
