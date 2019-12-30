@@ -33,7 +33,13 @@
   ![ex_screenshot](/ScreenShot/excercise.jpg)
   
   * Bmi 계산과 운동을 선택하여 add 버튼으로 추가 del 버튼으로 제거 
-  * 구현중 - Save를 선택시 DB에 저장됨
+  * Save를 선택시 DB에 저장됨 userinfomation table
+  * userinformation table 
+	  Userid 아이디
+	  Uweight 몸무게
+	  Uheight 키
+	  Ubmi BMI
+	  Uinputdate 입력된 시간 
   
   Food Section
   
