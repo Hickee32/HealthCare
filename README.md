@@ -3,8 +3,10 @@
 불규칙적인 식습관, 운동부족으로 인한 체력저하를 방지/관리하여 건강을 유지하는데 도움이 되는 **헬스 케어북**을 만들어 보았습니다.
 
 # information
-##Install
-  \HealthCare_01\src\main\MainApp.java
+
+  JAVA를 사용한 윈도우 응용프로그램입니다.
+
+  \HealthCare_01\src\main\MainApp.java 을 통해 실행합니다.
   
   
   Build path -> Configue Build path
@@ -58,8 +60,14 @@
   * 구현중 - 비밀번호 바꾸기
   
     ---------------------
-  
-  
+* 현재 문제점  
+
+
+로그인화면에서 회원가입창으로 이동이 가능하나 취소후 다시 이동할때 문제가 발생 (Exception)
+
+* 추가 구현 예정
+
+
   
   
 2019-12-12
