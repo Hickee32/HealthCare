@@ -1,343 +1,138 @@
 package views;
 
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import alram.Popup;
+import dbconnet.DbConnet;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import main.MainApp;
 
-public class CalendarController implements Initializable {
+public class CalendarController extends MainController {
+	@FXML
+	private Button btnPrev;
+	@FXML
+	private Button btnNext;
+	@FXML
+	private Label DateText;
+	@FXML
+	private Label DayText;
+	@FXML
+	private GridPane gridCalendar;
+
+	private YearMonth currentYM;
+	@SuppressWarnings("unused")
+	private boolean isFocused = false;
+
+	private List<DayController> dayList;
+	private Map<String, String> dayOfWeek = new HashMap<>();
+
+	private List<DayController> dayEXList;
+	private List<DayController> dayFOODList;
+	DayController day = new DayController();
+	DbConnet dbc = new DbConnet();
 
 	@FXML
-	private Label lblMonthYear;
-	@FXML
-	private GridPane gpMain;
-
-	LocalDateTime ldtControl;
-
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		ldtControl = LocalDateTime.now();
-		loadMonth(ldtControl);
-
-	}
-
-	int getColumn(LocalDateTime ldt) {
-		int i = 0;
-		while (ldt.getDayOfWeek() != DayOfWeek.SUNDAY) {
-			i++;
-			ldt = ldt.plusDays(1);
-		}
-
-		return i;
-	}
-
-	@FXML
-	private void handleBTNMonthChange(ActionEvent event) {
-		if (((Button) event.getSource()).getId().equals("leftButtonWithImage")) {
-			ldtControl = ldtControl.minusMonths(1);
-			loadMonth(ldtControl);
-		} else if (((Button) event.getSource()).getId().equals("rightButtonWithImage")) {
-			ldtControl = ldtControl.plusMonths(1);
-			loadMonth(ldtControl);
-		}
-	}
-
-	private void loadMonth(LocalDateTime ldt) {
-		if (gpMain.getChildren().size() > 0) {
-			gpMain.getChildren().clear();
-		}
-
-		loadGridPaneFirstRow();
-		lblMonthYear.setText(ldt.getMonth() + " " + ldt.getYear());
-
-		LocalDateTime ldtIterator = ldt.minusDays(ldt.getDayOfMonth() - 1);
-		ldtIterator.format(DateTimeFormatter.ISO_DATE);
-
-		int control = getColumn(ldtIterator);
-		int control2 = 0;
-		int i = 0;
-		while (ldtIterator.getMonth() == ldt.getMonth()) {
-			if (i == 0 || i == 1 && control2 <= control) {
-				i = 1;
-				control2++;
-			} else {
-				i = ((control2 - (control + 1)) / 7) + 2;
-				control2++;
-			}
-
-			Label tempLabel = new Label(Integer.toString(ldtIterator.getDayOfMonth()));
-
-			gpMain.add(createCell(tempLabel, ldtIterator), ldtIterator.getDayOfWeek().getValue() - 1, i);
-
-			ldtIterator = ldtIterator.plusDays(1);
-		}
-	}
-
-	private void loadGridPaneFirstRow() {
-		String[] string = { "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday" };
-		for (int i = 0; i < string.length; i++) {
-			Label tempLabel = new Label(string[i]);
-			GridPane.setHalignment(tempLabel, HPos.CENTER);
-			gpMain.add(tempLabel, i, 0);
-		}
-	}
-
-	private BorderPane createCell(Label label, LocalDateTime ldt) {
-
-		BorderPane cell = new BorderPane();
-		label.setOnMouseClicked(e -> addNewNote(ldt));
-
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(loadNotesForDate(ldt));
-		BorderPane.setAlignment(vbox, Pos.CENTER);
-		cell.setCenter(vbox);
-
-		BorderPane.setAlignment(label, Pos.TOP_RIGHT);
-		cell.setTop(label);
-		cell.getStyleClass().add("cell");
-
-		return cell;
-	}
-
-	private List<HBox> loadNotesForDate(LocalDateTime ldt) {
-		List<HBox> tempList = new ArrayList();
-
-		String sql = "Select * FROM Notes WHERE local_date_time = ?";
-
-		try (Connection conn = DriverManager.getConnection("jdbc:sqlite:calendarFx.db");
-				PreparedStatement pstmt = conn.prepareStatement(sql);) {
-
-			pstmt.setString(1, ldt.toLocalDate().toString());
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-
-				String tempNote = rs.getString("note");
-				Label tempLabel = new Label(tempNote);
-				// new Label(rs.getString("note")));
-
-				tempLabel.setOnMouseClicked(e -> {
-					editNote(ldt, tempNote);
-					loadMonth(ldt);
-				});
-				HBox hbox = new HBox();
-
-				hbox.getChildren().add(tempLabel);
-				tempList.add(hbox);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(CalendarController.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return tempList;
-	}
-
-	private void addNewNote(LocalDateTime ldt) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("New Note Dialog");
-		alert.setHeaderText("Add New Note");
-		alert.setContentText("Enter note!");
-
-		TextArea textArea = new TextArea();
-		textArea.setEditable(true);
-		textArea.setWrapText(true);
-
-		textArea.setMaxWidth(Double.MAX_VALUE);
-		textArea.setMaxHeight(Double.MAX_VALUE);
-		GridPane.setVgrow(textArea, Priority.ALWAYS);
-		GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-		GridPane expContent = new GridPane();
-		expContent.setMaxWidth(Double.MAX_VALUE);
-		expContent.add(textArea, 0, 1);
-
-		// Set expandable Exception into the dialog pane.
-		alert.getDialogPane().setContent(expContent);
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			if (textArea.getText().length() > 0) {
-				createNoteForDate(textArea.getText(), ldt);
-				loadMonth(ldt);
+	private void initialize() {
+		dayList = new ArrayList<>();
+		// 달력의 주
+		for (int i = 0; i < 5; i++) {
+			// 달력의 일
+			for (int j = 0; j < 7; j++) {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/views/DayLayout.fxml"));
+				try {
+					AnchorPane ap = loader.load();
+					gridCalendar.add(ap, j, i);
+					DayController dc = loader.getController();
+					dc.setRoot(ap);
+					dayList.add(dc);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.printf("j : %d, i : %d 번째 그리는 중 오류 발생\n", j, i);
+					Popup.showAlert("에러", "달력칸을 그리는 중 오류가 발생", AlertType.ERROR);
+				}
 			}
 		}
+		String[] engDay = { "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
+		String[] korDay = { "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" };
+
+		for (int i = 0; i < engDay.length; i++) {
+			dayOfWeek.put(engDay[i], korDay[i]);
+		}
+
+		loadMonthData(YearMonth.now());
+		setToday(LocalDate.now());
 	}
 
-	private void deleteNote(LocalDateTime ldt, String note) {
-		if (deleteConfirmation(note).get() == ButtonType.OK) {
-			String sql = "DELETE FROM Notes WHERE note = ? and  local_date_time = ?";
-			try (Connection conn = DriverManager.getConnection("jdbc:sqlite:calendarFx.db");
-					PreparedStatement pstmt = conn.prepareStatement(sql)) {
-				pstmt.setString(1, note);
-				pstmt.setString(2, ldt.toLocalDate().toString());
+	public void setToday(LocalDate date) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+		DateText.setText(date.format(dtf));
+		DayText.setText(dayOfWeek.get(date.getDayOfWeek().toString()));
+	}
 
-				pstmt.executeUpdate();
+	public void loadMonthData(YearMonth ym) {
+		LocalDate calendarDate = LocalDate.of(ym.getYear(), ym.getMonthValue(), 1); // 해당 년월의 1일을 가져온다.
+		while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY")) { // 일요일이 아닐때까지 하루씩 빼간다.
+			calendarDate = calendarDate.minusDays(1); // 하루씩 감소
+		}
+		// 여기까지 오면 해당주간의 첫째날이 오게된다. 여기서부터 캘린더를 그리기 시작한다.
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Delete Note Dialog");
-				alert.setHeaderText("Delete Note");
-				alert.setContentText("Note was successfully deleted!");
-				alert.show();
-			} catch (SQLException ex) {
-				exceptionDialog(ex.getMessage());
+		for (DayController day : dayList) {
+			// System.out.println(dbc.selectdate(MainApp.getUid(), "userEX"));
+			// System.out.println(calendarDate.toString());
+			day.setDayLabel(calendarDate);
+			calendarDate = calendarDate.plusDays(1); // 하루씩 증가
+
+			List<String> listE = new ArrayList<String>();
+			listE.addAll(dbc.selectdate(MainApp.getUid(), "userEX"));
+			for (int i = 0; i < listE.size(); i++) {
+				if (listE.contains(calendarDate.toString())) {
+//					dbc.selectdateAmount("userEX", "Uexercise", calendarDate.toString());
+					day.setEXlabeltext(
+							String.valueOf(dbc.selectdateAmount("userEX", "Uexercise", calendarDate.toString())));
+					// day.setElabelcolor();
+				} else {
+					day.setEXlabeltext(" ");
+				}
+			}
+			List<String> listF = new ArrayList<String>();
+			listF.addAll(dbc.selectdate(MainApp.getUid(), "userFood"));
+			for (int i = 0; i < listF.size(); i++) {
+				if (listF.contains(calendarDate.toString())) {
+					day.setFoodlabeltext(
+							String.valueOf(dbc.selectdateAmount("userFood", "Ufood", calendarDate.toString())));
+					// day.setFlabelcolor();
+				} else {
+					day.setFoodlabeltext(" ");
+				}
+
 			}
 		}
+		currentYM = ym;
 	}
 
-	private void editNote(LocalDateTime ldt, String note) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Edit Note Dialog");
-		alert.setHeaderText("Edit Note");
-		alert.setContentText("Enter note!");
-
-		TextArea textArea = new TextArea();
-
-		textArea.setEditable(false);
-		textArea.setWrapText(true);
-
-		textArea.setMaxWidth(Double.MAX_VALUE);
-		textArea.setMaxHeight(Double.MAX_VALUE);
-		GridPane.setVgrow(textArea, Priority.ALWAYS);
-		GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-		GridPane expContent = new GridPane();
-		expContent.setMaxWidth(Double.MAX_VALUE);
-		expContent.add(textArea, 0, 1);
-
-		// Set expandable Exception into the dialog pane.
-		alert.getDialogPane().setContent(expContent);
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			if (textArea.getText().length() > 0) {
-				editNoteForDate(note, textArea.getText(), ldt);
-				loadMonth(ldt);
-			}
-		}
+	public void prevMonth() {
+		loadMonthData(currentYM.minusMonths(1)); // 한달 뺀 달력을 로드
+		LocalDate firstDay = LocalDate.of(currentYM.getYear(), currentYM.getMonthValue(), 1);
+		setToday(firstDay);
 	}
 
-	private void createNoteForDate(String note, LocalDateTime ldt) {
-
-		String sql = "INSERT INTO Notes(local_date_time, note) VALUES(?, ?)";
-		try (Connection conn = DriverManager.getConnection("jdbc:sqlite:calendarFx.db");
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, ldt.toLocalDate().toString());
-			pstmt.setString(2, note);
-
-			pstmt.executeUpdate();
-		} catch (SQLException ex) {
-			exceptionDialog(ex.getMessage());
-		}
+	public void nextMonth() {
+		loadMonthData(currentYM.plusMonths(1)); // 한달 뺀 달력을 로드
+		LocalDate firstDay = LocalDate.of(currentYM.getYear(), currentYM.getMonthValue(), 1);
+		setToday(firstDay);
 	}
 
-	private void editNoteForDate(String oldNote, String newNote, LocalDateTime ldt) {
-		String sql = "UPDATE Notes SET note = ? WHERE note = ? and  local_date_time = ?";
-		try (Connection conn = DriverManager.getConnection("jdbc:sqlite:calendarFx.db");
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			pstmt.setString(1, newNote);
-			pstmt.setString(2, oldNote);
-			pstmt.setString(3, ldt.toLocalDate().toString());
-
-			pstmt.executeUpdate();
-
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Update Note Dialog");
-			alert.setHeaderText("Update Note");
-			alert.setContentText("Note was successfully updated!");
-			alert.show();
-		} catch (SQLException ex) {
-			exceptionDialog(ex.getMessage());
-		}
-	}
-
-	private void exceptionDialog(String exceptionText) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Exception Dialog");
-		alert.setHeaderText("Error!");
-
-		TextArea textArea = new TextArea(exceptionText);
-		textArea.setEditable(false);
-		textArea.setWrapText(true);
-
-		textArea.setMaxWidth(Double.MAX_VALUE);
-		textArea.setMaxHeight(Double.MAX_VALUE);
-		GridPane.setVgrow(textArea, Priority.ALWAYS);
-		GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-		GridPane expContent = new GridPane();
-		expContent.setMaxWidth(Double.MAX_VALUE);
-		expContent.add(textArea, 0, 1);
-
-		// Set expandable Exception into the dialog pane.
-		alert.getDialogPane().setExpandableContent(expContent);
-		alert.getDialogPane().setExpanded(true);
-		alert.showAndWait();
-	}
-
-	private Optional<ButtonType> deleteConfirmation(String note) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Delete Note Dialog");
-		alert.setHeaderText("Delete Note");
-		alert.setContentText("Are you sure you want to delete this note!");
-
-		TextArea textArea = new TextArea();
-		textArea.setText(note);
-		textArea.setEditable(false);
-		textArea.setWrapText(true);
-
-		textArea.setMaxWidth(Double.MAX_VALUE);
-		textArea.setMaxHeight(Double.MAX_VALUE);
-		GridPane.setVgrow(textArea, Priority.ALWAYS);
-		GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-		GridPane expContent = new GridPane();
-		expContent.setMaxWidth(Double.MAX_VALUE);
-		expContent.add(textArea, 0, 1);
-
-		// Set expandable Exception into the dialog pane.
-		alert.getDialogPane().setContent(expContent);
-		Optional<ButtonType> result = alert.showAndWait();
-
-		ObservableList<String> optionList = FXCollections.observableArrayList();
-		return result;
-	}
 }
-
-//if (result.get() == ButtonType.OK)
-//        {
-//            if(textArea.getText().length() > 0)
-//            {
-//                editNoteForDate(note, textArea.getText(), ldt);
-//                loadMonth(ldt);
-//            }            
-//        } 

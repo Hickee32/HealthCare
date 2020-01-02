@@ -160,12 +160,12 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="66.0" prefWidth="341.0">
                      <children>
-                        <Button fx:id="PWChangeBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="62.0" text="change">
+                        <Button fx:id="PWChangeBtn" mnemonicParsing="false" onAction="#ChangePW" prefHeight="40.0" prefWidth="62.0" text="change">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="PwResetBtn" mnemonicParsing="false" prefHeight="40.0" text="Reset" />
+                        <Button fx:id="PwResetBtn" mnemonicParsing="false" onAction="#ChangeReset" prefHeight="40.0" text="Reset" />
                      </children>
                   </HBox>
                </children>

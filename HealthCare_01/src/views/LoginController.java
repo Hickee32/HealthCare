@@ -22,6 +22,7 @@ public class LoginController extends MainController {
 
 	DbConnet dbc = new DbConnet();
 
+	// 로그인 버튼
 	public void loginProcess() throws IOException {
 		String id = IdText.getText();
 		String pw = PassText.getText();
@@ -31,15 +32,26 @@ public class LoginController extends MainController {
 			return;
 
 		} else {
-			dbc.LoginDB(id, pw);
-			if (!(dbc.LoginDB(id, pw))) {
+			dbc.LoginDbUserTbl(id, pw);
+			if (!(dbc.LoginDbUserTbl(id, pw))) {
 				Popup.showAlert("에러", "존재하지 않는 아이디이거나 틀린 비밀번호입니다.", AlertType.ERROR);
 			} else {
+				MainApp.setloginCheck(true);
+				System.out.println(main.MainApp.isloginCheck());
 				MainApp.app.slide(loginPage);
 			}
 		}
 	}
 
+	// 게스트 버튼
+	public void GuestLogin() {
+		dbc.LoginDbUserTbl("Guest", "Guest");
+		MainApp.setloginCheck(false);
+		System.out.println(main.MainApp.isloginCheck());
+		MainApp.app.slide(loginPage);
+	}
+
+	// 회원가입 버튼
 	public void registerPage() {
 		MainApp.app.loadPane("register");
 	}

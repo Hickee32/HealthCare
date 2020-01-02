@@ -99,7 +99,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#titlePage" onMouseEntered="#MainbtnEntered" onMouseExited="#BtnExited" prefHeight="24.0" prefWidth="60.0" style="-fx-background-color: #f22068;" text="EX소개" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#MemoPage" onMouseEntered="#MainbtnEntered" onMouseExited="#BtnExited" prefHeight="23.0" prefWidth="60.0" style="-fx-background-color: #f22068;" text="Main" textFill="WHITE">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -111,21 +111,9 @@
                <children>
                   <StackPane fx:id="mainContent" layoutY="55.0" prefHeight="410.0" prefWidth="690.0" style="-fx-background-color: #9776c3;">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="Mainpage" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="69.0" fitWidth="658.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true">
-                                 <image>
-                                    <Image url="@../images/info.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="102.0" layoutY="83.0" prefHeight="30.0" prefWidth="243.0" text="마우스 오버시 간단한 설명을 볼수 있습니다." textFill="WHITE" />
-                              <ImageView fitHeight="78.0" fitWidth="88.0" layoutX="14.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ButtonInfo.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="107.0" layoutY="140.0" prefHeight="30.0" prefWidth="243.0" text="간단히 할수있는 운동을 소개합니다." textFill="WHITE" />
-                              <Label layoutX="107.0" layoutY="178.0" prefHeight="30.0" prefWidth="243.0" text="프로그램을 종료 합니다." textFill="WHITE" />
+                              <ImageView fitHeight="223.0" fitWidth="321.0" layoutX="355.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </AnchorPane>
                      </children></StackPane>

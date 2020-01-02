@@ -2,13 +2,17 @@ package views;
 
 import java.io.IOException;
 
+import alram.Popup;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebView;
+import main.MainApp;
 
 public class MainController {
 
@@ -25,6 +29,8 @@ public class MainController {
 	Label TextLabel;
 	@FXML
 	Button LogBtn;
+	@FXML
+	WebView webview;
 
 	public Pane getRoot() {
 		return root;
@@ -32,6 +38,17 @@ public class MainController {
 
 	public void setRoot(Pane root) {
 		this.root = root;
+	}
+
+	public void titlePage1() throws IOException {
+
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/TitleLayout.fxml"));
+		Pane TitlePane = (Pane) fxmlLoader.load();
+		try {
+			mainContent.getChildren().add(TitlePane);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void titlePage() throws IOException {
@@ -58,18 +75,6 @@ public class MainController {
 		}
 	}
 
-	public void CalendarPage() throws IOException {
-
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/CalendarLayout.fxml"));
-		Pane CalendarPane = (Pane) fxmlLoader.load();
-		try {
-			mainContent.getChildren().clear();
-			mainContent.getChildren().add(CalendarPane);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void AmountFoodPage() throws IOException {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AmountFoodLayout.fxml"));
@@ -82,27 +87,57 @@ public class MainController {
 		}
 	}
 
-	public void GraphPage() throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/GraphLayout.fxml"));
-		Pane GraphPane = (Pane) fxmlLoader.load();
-		try {
-			mainContent.getChildren().clear();
-			mainContent.getChildren().add(GraphPane);
-		} catch (Exception e) {
-			e.printStackTrace();
+	@SuppressWarnings("static-access")
+	public void CalendarPage() throws IOException {
+		if (MainApp.app.getUid().equals("Guest")) {
+			Popup.showAlert("에러", "로그인이 필요한 서비스입니다.", AlertType.ERROR);
+		} else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/CalendarLayout.fxml"));
+			Pane CalendarPane = (Pane) fxmlLoader.load();
+			try {
+				mainContent.getChildren().clear();
+				mainContent.getChildren().add(CalendarPane);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
+	@SuppressWarnings("static-access")
+	public void GraphPage() throws IOException {
+		if (MainApp.app.getUid().equals("Guest")) {
+			Popup.showAlert("에러", "로그인이 필요한 서비스입니다.", AlertType.ERROR);
+		} else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/GraphLayout.fxml"));
+			Pane GraphPane = (Pane) fxmlLoader.load();
+			try {
+				mainContent.getChildren().clear();
+				mainContent.getChildren().add(GraphPane);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@SuppressWarnings("static-access")
 	public void MemoPage() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MemoLayout.fxml"));
-		Pane AmountExPane = (Pane) fxmlLoader.load();
-		try {
-			mainContent.getChildren().clear();
-			mainContent.getChildren().add(AmountExPane);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (MainApp.app.getUid().equals("Guest")) {
+			Popup.showAlert("에러", "로그인이 필요한 서비스입니다.", AlertType.ERROR);
+		} else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MemoLayout.fxml"));
+			Pane AmountExPane = (Pane) fxmlLoader.load();
+			try {
+				mainContent.getChildren().clear();
+				mainContent.getChildren().add(AmountExPane);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	public void Exit() {
+		System.exit(0);
 	}
 
 	public void LogbtnTextChange() {

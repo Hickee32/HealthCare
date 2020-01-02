@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -109,14 +108,7 @@
             </VBox>
             <AnchorPane layoutX="106.0" layoutY="3.0" prefHeight="460.0" prefWidth="690.0" style="-fx-background-color: #9776c3;" AnchorPane.bottomAnchor="18.0" AnchorPane.topAnchor="5.0">
                <children>
-                  <StackPane fx:id="mainContent" layoutY="55.0" prefHeight="410.0" prefWidth="690.0" style="-fx-background-color: #9776c3;">
-                     <children>
-                        <AnchorPane fx:id="Mainpage" prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fitHeight="223.0" fitWidth="321.0" layoutX="355.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </AnchorPane>
-                     </children></StackPane>
+                  <StackPane fx:id="mainContent" layoutY="55.0" prefHeight="410.0" prefWidth="690.0" style="-fx-background-color: #9776c3;" />
                </children>
             </AnchorPane>
             <HBox alignment="CENTER" layoutX="113.0" layoutY="8.0" prefHeight="46.0" prefWidth="679.0" style="-fx-background-color: #f22068;" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="7.0">

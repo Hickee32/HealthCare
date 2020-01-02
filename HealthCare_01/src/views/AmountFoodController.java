@@ -20,7 +20,6 @@ import resource.Food;
 
 public class AmountFoodController extends MainController {
 
-	@SuppressWarnings("rawtypes")
 	@FXML
 	private ComboBox foodCB;
 	@FXML
@@ -38,7 +37,6 @@ public class AmountFoodController extends MainController {
 	double Foodkcal;
 	double TMot;
 
-	@SuppressWarnings("unchecked")
 	@FXML
 	private void initialize() {
 		foodCB.setItems(comBolist);
@@ -47,7 +45,6 @@ public class AmountFoodController extends MainController {
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void GukListadd() {
 		FoodList = FXCollections.observableArrayList(new Food("미역국", 204.0), new Food("배추된장국", 73.0),
 				new Food("쇠고기국", 234.0), new Food("북어국", 272.0), new Food("쇠고기무국", 110.0), new Food("시금치된장국", 73.0),
@@ -75,7 +72,6 @@ public class AmountFoodController extends MainController {
 		});
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void BabListadd() {
 		FoodList = FXCollections.observableArrayList(new Food("미국", 204.0), new Food("배추된장국", 73.0),
 				new Food("쇠고기국", 234.0), new Food("북어국", 272.0), new Food("쇠고기무국", 110.0), new Food("시금치된장국", 73.0),
@@ -111,7 +107,6 @@ public class AmountFoodController extends MainController {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void AddfoodAF() {
 
 		FoodAddedList.add(new Food(FoodName, Foodkcal));

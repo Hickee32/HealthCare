@@ -1,6 +1,8 @@
 package views;
 
+import alram.Popup;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -37,6 +39,23 @@ public class MemoController extends MainController {
 		memoWeight.setText(Double.toString(main.MainApp.getUweight()));
 		memoHeight.setText(Double.toString(main.MainApp.getUheight()));
 		memoBmi.setText(Double.toString(main.MainApp.getUbmi()));
+	}
+
+	public void ChangePW() {
+		if (CurrPw.getText().length() >= 4) {
+			if (CurrPw.getText().equals(main.MainApp.getUpw())) {
+				// 패스워드를 바꾸는 곳
+			} else {
+				Popup.showAlert("에러", "비밀번호가 맞지 않습니다.", AlertType.ERROR);
+			}
+		} else {
+			Popup.showAlert("에러", "비밀번호는 최소 4글자 이상이어야 합니다.", AlertType.ERROR);
+		}
+	}
+
+	public void ChangeReset() {
+		CurrPw.setText(null);
+		ChangePw.setText(null);
 	}
 
 }

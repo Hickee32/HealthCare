@@ -57,7 +57,7 @@ public class RegisterController extends MainController {
 			pw = pass.getText();
 
 			try {
-				dbc.insertUser(id, name, pw);
+				dbc.insertUserTbl(id, name, pw);
 				Popup.showAlert("가입", "가입되었습니다.", AlertType.INFORMATION);
 			} catch (Exception e) {
 				Popup.showAlert("에러", "오류가 발생하였습니다.", AlertType.ERROR);
@@ -67,7 +67,7 @@ public class RegisterController extends MainController {
 
 	public void idChackBtn() {
 		idText = txtId.getText();
-		dbc.selectOne(idText, idclabel, registpermit, RegisterBtn);
+		dbc.selectUserTbl(idText, idclabel, registpermit, RegisterBtn);
 		System.out.println(registpermit + " = idChackBtn");
 	}
 

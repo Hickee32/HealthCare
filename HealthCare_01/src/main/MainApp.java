@@ -24,9 +24,10 @@ public class MainApp extends Application {
 	public static MainApp app;
 	private StackPane mainPage;
 
-	static boolean loginTF = false;
+	static boolean loginCheck = false;
 
 	static String Uid = null;
+	static String Upw = null;
 	static String Uname = null;
 	static Date Uinidate = null;
 	static double Uweight;
@@ -107,12 +108,12 @@ public class MainApp extends Application {
 		timeline.play();
 	}
 
-	public static boolean isLoginTF() {
-		return loginTF;
+	public static boolean isloginCheck() {
+		return loginCheck;
 	}
 
-	public static void setLoginTF(boolean loginTF) {
-		MainApp.loginTF = loginTF;
+	public static void setloginCheck(boolean loginCheck) {
+		MainApp.loginCheck = loginCheck;
 	}
 
 	public static String getUid() {
@@ -121,6 +122,14 @@ public class MainApp extends Application {
 
 	public static void setUid(String uid) {
 		Uid = uid;
+	}
+
+	public static String getUpw() {
+		return Upw;
+	}
+
+	public static void setUpw(String upw) {
+		Upw = upw;
 	}
 
 	public static String getUname() {

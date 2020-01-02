@@ -13,7 +13,8 @@ public class TitleController extends MainController {
 
 	@FXML
 	private void initialize() {
-		webview.getEngine().load("https://terms.naver.com/list.nhn?cid=51032&categoryId=51032");
+		webview.getEngine().load("https://terms.naver.com/list.nhn?cid=51001&categoryId=51001");
+
 	}
 
 }

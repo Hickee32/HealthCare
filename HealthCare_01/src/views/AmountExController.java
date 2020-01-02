@@ -59,7 +59,7 @@ public class AmountExController extends MainController {
 	double Exmot;
 	double ExMin;
 	double TMot;
-	
+
 	DbConnet dbc = new DbConnet();
 
 	@FXML
@@ -169,23 +169,21 @@ public class AmountExController extends MainController {
 	}
 
 	public void SaveBtnPress() {
-		if(main.MainApp.getUid() != null) {
-			if (HeightTF.getText() != null) {
-				main.MainApp.setUheight(Double.parseDouble(HeightTF.getText()));
-			}
-			if (WeightTF.getText() != null) {
-				main.MainApp.setUweight(Double.parseDouble(WeightTF.getText()));
-			}
-			if (BMiresultTF.getText() != null) {
-				main.MainApp.setUbmi(Double.parseDouble(BMiresultTF.getText()));
-			}
-			System.out.println(main.MainApp.getUid()+","+main.MainApp.getUweight()+","+main.MainApp.getUheight()+","+main.MainApp.getUbmi());
-			//dbc.insertUserinfo(main.MainApp.getUid(),main.MainApp.getUweight(),main.MainApp.getUheight(),main.MainApp.getUbmi());
-		}
-		else {
-			System.out.println("빈칸이 있다.");
-		}
 
+		if (main.MainApp.getUid().equals("Guest")) {
+			Popup.showAlert("에러", "GuestID는 저장할수 없습니다. ", AlertType.ERROR);
+
+		} else {
+			try {
+				double weight = Double.parseDouble(WeightTF.getText());
+				double height = Double.parseDouble(HeightTF.getText());
+				double bmi = Double.parseDouble(BMiresultTF.getText());
+				dbc.update(main.MainApp.getUid(), weight, height, bmi);
+
+			} catch (Exception e) {
+				Popup.showAlert("에러", "빈칸이 있습니다.", AlertType.ERROR);
+			}
+		}
 	}
 
 	public void ResetBtnPress() {

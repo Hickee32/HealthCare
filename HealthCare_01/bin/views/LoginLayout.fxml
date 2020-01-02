@@ -39,7 +39,7 @@
                      <font>
                         <Font size="13.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #FFFFFF;" text="게스트" />
+                  <Button mnemonicParsing="false" onAction="#GuestLogin" prefHeight="43.0" prefWidth="70.0" style="-fx-background-color: #FFFFFF;" text="게스트" />
                </children>
             </HBox>
          </children>

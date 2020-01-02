@@ -15,7 +15,13 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="40.0" prefHeight="15.0" prefWidth="37.0" style="-fx-background-color: #2BDE1F;" text="EX" textFill="WHITE" />
-      <Label layoutX="32.0" layoutY="26.0" style="-fx-background-color: #DE1F34;" text="Eating" textFill="WHITE" />
+      <Label fx:id="EXText" alignment="CENTER" layoutX="32.0" layoutY="40.0" prefHeight="15.0" prefWidth="37.0" text="EX" textFill="#1aff00">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="FOODText" alignment="CENTER" layoutX="32.0" layoutY="26.0" prefHeight="15.0" prefWidth="37.0" text="Eating" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
    </children>
 </AnchorPane>
