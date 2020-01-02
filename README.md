@@ -56,6 +56,14 @@
   
   * menu 버튼을 통해서 음식의 종류를 선택하고 add 버튼으로 추가 del 버튼으로 제거
   
+  Calendar Section
+  
+  ![ex_screenshot](/ScreenShot/Calender.jpg)
+  
+  * 로그인 중이라면 내가 섭취한 칼로리 (빨간색) 날마다 운동한 운동량 (초록색)을 나타냄니다.
+  
+    ---------------------
+  
   Memo Section
   
   ![ex_screenshot](/ScreenShot/Memo.jpg)
